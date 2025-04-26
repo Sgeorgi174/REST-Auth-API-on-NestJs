@@ -1,11 +1,13 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
   Req,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterRequest } from './dto/register.dto';
@@ -21,6 +23,7 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Auth') // Группировка всех эндпоинтов в Swagger UI
 @Controller('auth')
@@ -98,5 +101,13 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   logout(@Res({ passthrough: true }) res: Response) {
     return this.authService.logout(res);
+  }
+
+  @ApiOperation({ summary: 'Получение своего профиля(для теста jwt-strategy)' })
+  @UseGuards(AuthGuard('jwt'))
+  @Get('@me')
+  @HttpCode(HttpStatus.OK)
+  me(@Req() req: Request) {
+    return req.user;
   }
 }
