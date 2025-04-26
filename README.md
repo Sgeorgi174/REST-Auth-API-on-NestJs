@@ -5,6 +5,7 @@
 <p>NestJS - основная библиотека </br>
 TS - для контроля типизации </br>
 class-validator - для валидации данных </br>
+Jwt-passport - для jwt стратегии </br>
 cookie-parser - для работы с cookie (работа с токенами) </br>
 prisma ORM - ORM для базы данных </br>
 argon2 - для хеширования паролей </br>
